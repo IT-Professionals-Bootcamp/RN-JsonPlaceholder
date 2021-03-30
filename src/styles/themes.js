@@ -12,5 +12,14 @@ export const themes = {
     },
   },
 
-  dark: {},
+  dark: {
+    colors: {
+      text: c.light1,
+      buttonText: c.light1,
+      base: c.dark2,
+      card: c.dark1,
+      primary: c.primaryDark,
+      alt: c.primary,
+    },
+  },
 };
