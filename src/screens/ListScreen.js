@@ -1,24 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from '../components';
+import { StyleSheet, Text, FlatList } from 'react-native';
+import { Button, Container, Card, Row } from '../components';
+import { useResources } from '../hooks/useResources';
 
 export const ListScreen = ({ navigation }) => {
+  const resources = useResources('posts');
+  console.log(`resources from List Screen : `, resources);
   return (
-    <View style={styles.container}>
-      <Text>ListScreen</Text>
-      <Button
-        onPress={() => navigation.navigate('Details')}
-        buttonText={'Go to details'}
-      />
-    </View>
+    <Container>
+      <Card>
+        <FlatList
+          style={styles.list}
+          data={resources}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Row
+              id={item.id}
+              title={item.title}
+              onPress={() => navigation.navigate('Details', { post: item })}
+            />
+          )}
+        />
+      </Card>
+    </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  list: {
+    paddingTop: 30,
   },
 });
